@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+       
+        <title></title>
+        <style>
+            /* Centering container */
+            .container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh; /* Set the height of the container to full viewport height */
+            }
+        
+            /* Styles for task box and form box */
+            .task-box, .form-box {
+                border: 1px solid #ccc;
+                padding: 10px;
+                margin-bottom: 10px;
+                border-radius: 5px;
+                background-color: #f9f9f9;
+                max-width: 400px; /* Adjust the maximum width as needed */
+                width: 100%; /* Ensure the box takes full width within the container */
+            }
+        
+            .task-title {
+                font-weight: bold;
+                margin-bottom: 5px;
+            }
+        
+            .task-actions {
+                margin-top: 5px;
+            }
+        
+            .task-actions a {
+                margin-right: 10px;
+                text-decoration: none;
+                color: #007bff;
+            }
+        
+            .task-actions a:hover {
+                text-decoration: underline;
+            }
+        
+            .form-box input[type="text"] {
+                width: calc(100% - 22px); /* Adjust width to account for padding and border */
+                padding: 5px;
+                margin-bottom: 10px;
+            }
+        
+            .form-box input[type="submit"] {
+                background-color: #007bff;
+                color: #fff;
+                border: none;
+                padding: 8px 16px;
+                cursor: pointer;
+                border-radius: 5px;
+            }
+        
+            .form-box input[type="submit"]:hover {
+                background-color: #0056b3;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="box">
+                <div class="form-box">
+                    <h1>To Do List</h1>
+                    <form method="POST" action='/'>
+                        {% csrf_token %}
+                        {{ form.title }}
+                        <input type="submit" name="Create task" value="Create Task">
+                    </form>
+                </div>
+        
+                <ol>
+                    {% for i in tasks %}
+                        <li class="task-box">
+                            <div class="task-title">{{ i }}</div>
+                            <div class="task-actions">
+                                <a href="{% url 'uptask' i.id %}">update</a>
+                                <a href="{% url 'delete' i.id %}">delete</a>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ol>
+        
+         
+            </div>
+        </div>
+        
+       
+        
+  
+    </body>
+</html>
